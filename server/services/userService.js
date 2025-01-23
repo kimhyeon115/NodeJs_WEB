@@ -3,7 +3,8 @@ const User = require('../models/User');
 const UserRepository = require('../repositories/UserRepository');
 const { USER_MESSAGES } = require('../utils/Messages');
 
-/** 사용자 서비스 **/
+
+/*** 사용자 서비스 ***/
 class UserService {
 
   /** 사용자 생성 메서드 **/
@@ -38,6 +39,7 @@ class UserService {
     }
   }
 
+
   /** 사용자 조회 메서드 **/
   async readUsersService(readParams) {
     try {      
@@ -59,6 +61,7 @@ class UserService {
       };
     }
   }
+
 
   /** 사용자 수정 메서드 **/
   async updateUserService(userId, updateParams) {
@@ -102,6 +105,7 @@ class UserService {
     }
   }
 
+  /** 사용자 삭제 메서드 **/
   async deleteUserService(userId) {
     try {
       const existingUser = await UserRepository.readUsers({ id: userId });
@@ -127,6 +131,47 @@ class UserService {
     }
   }
 
+  /** 사용자 로그인 메서드 **/
+  async loginUserService(loginParams) {
+    try {
+      const { email, password } = loginParams;
+
+      /* 유저 조회 */
+      const user = await UserRepository.readUsers({email});
+      console.log("UserService > loginUserService : ", user);
+
+      /* 유저가 없는 경우 */
+      if (user.length === 0) {
+        return {
+          success: false,
+          message: USER_MESSAGES.ERROR.INVALID_EMAIL
+        }
+      }
+
+      /* 비밀번호 검증 (bcrypt 사용 비교) */
+      const isPasswordValid = await bcrypt.compare(password, user[0].password)
+      if (!isPasswordValid) {
+        return {
+          success: false,
+          message: USER_MESSAGES.ERROR.INVALID_PASSWORD
+        }
+      }
+
+      /* 로그인 사용자 인증 성공 */
+      return {
+        success: true,
+        message: USER_MESSAGES.AUTH.SUCCESS,
+        data: user.map(user => new User(user).publicToJson()),
+      };
+      
+    } catch (error) {
+      return {
+        success: false,
+        message: USER_MESSAGES.ERROR.READ_FAILED
+      };
+    }
+  }
+
 }
 
-module.exports = new UserService(); 
+module.exports = new UserService();

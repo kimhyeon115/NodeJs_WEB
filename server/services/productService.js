@@ -2,7 +2,8 @@ const Product = require('../models/Product');
 const ProductRepository = require('../repositories/ProductRepository');
 const { PRODUCT_MESSAGES } = require('../utils/Messages');
 
-/** 상품 서비스 **/
+
+/*** 상품 서비스 ***/
 class ProductService {
 
   /** 상품 조회 메서드 **/

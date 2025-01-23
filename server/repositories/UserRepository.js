@@ -1,7 +1,8 @@
 const db = require('../config/database');
 const UserQueryBuilder = require('../queries/UserQueryBuilder');
 
-/** 사용자 리포지토리 **/
+
+/*** 사용자 리포지토리 ***/
 class UserRepository {
 
   /** 사용자 조회 메서드 **/
@@ -33,4 +34,4 @@ class UserRepository {
   }
 }
 
-module.exports = new UserRepository(); 
+module.exports = new UserRepository();

@@ -1,7 +1,8 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
-// 쿼리 로깅을 위한 커스텀 로거
+
+/** 쿼리 로깅을 위한 커스텀 로거 **/
 const queryLogger = (query, params) => {
   console.log('---------------------------------------------------------------------------------');
   console.log('\n[SQL Query]:', query);
@@ -9,7 +10,7 @@ const queryLogger = (query, params) => {
   console.log('---------------------------------------------------------------------------------');
 };
 
-// 기존 풀 설정 유지
+/** 기존 풀 설정 유지 **/
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -21,7 +22,7 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-// DB 연결 테스트
+/** DB 연결 테스트 **/
 const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
@@ -32,16 +33,16 @@ const testConnection = async () => {
   }
 };
 
-// 쿼리 실행 래퍼 함수
+/** 쿼리 실행 래퍼 함수 **/
 const execute = async (query, params) => {
   try {
-    // 쿼리 로깅
+    /* 쿼리 로깅 */
     queryLogger(query, params);
     
-    // 쿼리 실행
+    /* 쿼리 실행 */
     const [rows] = await pool.execute(query, params);
     
-    // 결과 로깅
+    /* 결과 로깅 */
     if (rows.affectedRows !== undefined) {
       console.log('[Query Result]', {
         affectedRows: rows.affectedRows,
@@ -63,4 +64,4 @@ testConnection();
 module.exports = {
   pool,
   execute
-}; 
+};

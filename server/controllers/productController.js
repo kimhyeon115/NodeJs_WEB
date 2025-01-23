@@ -2,7 +2,8 @@ const ApiResponse = require('../utils/Response');
 const { PRODUCT_MESSAGES } = require('../utils/Messages');
 const ProductService = require('../services/productService');
 
-/** 상품 컨트롤러 **/
+
+/*** 상품 컨트롤러 ***/
 class ProductController {
 
   /** 상품 생성 메서드 **/

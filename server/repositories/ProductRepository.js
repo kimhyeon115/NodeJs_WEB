@@ -1,7 +1,7 @@
 const db = require('../config/database');
 const ProductQueryBuilder = require('../queries/ProductQueryBuilder');
 
-/** 상품 리포지토리 **/
+/*** 상품 리포지토리 ***/
 class ProductRepository {
 
   /** 상품 조회 메서드 **/
@@ -31,7 +31,6 @@ class ProductRepository {
     const [result] = await db.execute(query, params);
     return result;
   }
-
 } 
 
 module.exports = new ProductRepository();

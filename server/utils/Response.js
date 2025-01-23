@@ -1,4 +1,4 @@
-/** API 응답 클래스 **/
+/*** API 응답 클래스 ***/
 class ApiResponse {
 
   /** 성공 응답 생성 메서드 **/
@@ -33,6 +33,17 @@ class ApiResponse {
     };
   }
 
+  /** 로그인 성공 응답 생성 메서드 **/
+  static loginSuccess(message, token, row = [], statusCode = 200) {
+    
+    return {
+      status: statusCode,
+      success: true,
+      message,
+      body: row,
+      token
+    };
+  }
 }
 
-module.exports = ApiResponse; 
+module.exports = ApiResponse;

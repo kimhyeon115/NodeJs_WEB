@@ -2,9 +2,13 @@ import { Container, ListGroup, Button, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function ProductManagePage() {
-  const [products, setProducts] = useState([]);
 
+function ProductManagePage() {
+
+  /* 상태 관리 */
+  const [products, setProducts] = useState([]);       // 제품 정보 상태
+
+  /* 제품 조회 요청 */
   useEffect(() => {
     axios
       .get("https://fakestoreapi.com/products")
